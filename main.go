@@ -1,11 +1,11 @@
 package main
 
 import (
+	"_/Users/jgavinray/devenvironment/go/Godeps/_workspace/src/github.com/dagopherboy/jwt-go"
 	"fmt"
 	"log"
-	"os"
-	"github.com/dagopherboy/jwt-go"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -15,13 +15,13 @@ func main() {
 }
 
 func authenticationHandler(w http.ResponseWriter, r *http.Request) {
-	
+
 	mySigningKey := []byte(os.Getenv("SuperSecretKey"))
-	
-	if  mySigningKey == nil {
+
+	if mySigningKey == nil {
 		mySigningKey = []byte("SecretLike")
 	}
-	
+
 	token := jwt.New(jwt.SigningMethodHS256)
 	// Set some claims
 	token.Claims["foo"] = "bar"
@@ -31,8 +31,8 @@ func authenticationHandler(w http.ResponseWriter, r *http.Request) {
 	// Sign and get the complete encoded token as a string
 	tokenString, err := token.SignedString(mySigningKey)
 	if err != nil {
-		fmt.Fprintf(w, "%s\n", err)		
+		fmt.Fprintf(w, "%s\n", err)
 		return
-	} 	
-	fmt.Fprintf(w, "%s\n", tokenString)		
+	}
+	fmt.Fprintf(w, "%s\n", tokenString)
 }
