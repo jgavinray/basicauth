@@ -1,8 +1,8 @@
 package main
 
 import (
-	"_/Users/jgavinray/devenvironment/go/Godeps/_workspace/src/github.com/dagopherboy/jwt-go"
 	"fmt"
+	"github.com/dagopherboy/jwt-go"
 	"log"
 	"net/http"
 	"os"
@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/authentication", authenticationHandler)
+	http.HandleFunc("/authentication", BasicAuth(authenticationHandler))
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 
@@ -22,6 +22,13 @@ func authenticationHandler(w http.ResponseWriter, r *http.Request) {
 		mySigningKey = []byte("SecretLike")
 	}
 
+    r.ParseForm()
+    
+    // logic part of log in
+    username := r.Form["username"]
+    password := r.Form["password"]
+    fmt.Fprintf(w, "%s:%s\n", username, password)
+    
 	token := jwt.New(jwt.SigningMethodHS256)
 	// Set some claims
 	token.Claims["foo"] = "bar"
