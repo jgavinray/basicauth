@@ -10,11 +10,11 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/authentication", BasicAuth(authenticationHandler))
+	http.HandleFunc("/authentication", BasicAuth(generateToken))
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 
-func authenticationHandler(w http.ResponseWriter, r *http.Request) {
+func generateToken(w http.ResponseWriter, r *http.Request) {
 
 	mySigningKey := []byte(os.Getenv("SuperSecretKey"))
 
