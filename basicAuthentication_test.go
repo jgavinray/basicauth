@@ -11,13 +11,11 @@ func TestValidateUser(t *testing.T) {
 		want     bool
 	}{
 		{"foo", "bar", true},
-		{"user", "bar", false},
-		{"foo", "pass", false},
 		{"user", "pass", false},
 	}
 
 	for _, test := range tests {
-		if got := ValidateUser(test.username, test.password); got != test.want {
+		if got := IsValidateUser(test.username, test.password); got != test.want {
 			t.Error("ValidateUser(%q, %q) = %v", test.username, test.password, got)
 		}
 	}

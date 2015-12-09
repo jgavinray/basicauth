@@ -27,7 +27,7 @@ func BasicAuth(pass http.HandlerFunc) http.HandlerFunc {
 		pair := strings.SplitN(string(payload), ":", 2)
 
 		// Check to make sure we have two elements in the pair array, or that we can confirm the credentials are valid
-		if len(pair) != 2 || !ValidateUser(pair[0], pair[1]) {
+		if len(pair) != 2 || !IsValidateUser(pair[0], pair[1]) {
 			http.Error(w, "authorization failed", http.StatusUnauthorized)
 			return
 		}
@@ -38,7 +38,7 @@ func BasicAuth(pass http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func ValidateUser(username, password string) bool {
+func IsValidateUser(username, password string) bool {
 	// Make come database call to validate username and password
 	if username == "foo" && password == "bar" {
 		return true
