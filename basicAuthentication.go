@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/dagopherboy/jwt-go"
+	"github.com/jgavinray/jwt-go"
 	"net/http"
 	"os"
 	"strings"
